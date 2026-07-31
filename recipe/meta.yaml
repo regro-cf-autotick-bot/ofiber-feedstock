@@ -1,5 +1,6 @@
 {% set name = "ofiber" %}
-{% set version = "0.9.1" %}
+{% set version = "1.0.0" %}
+{% set python_min = "3.10" %}
 
 package:
   name: {{ name|lower }}
@@ -7,37 +8,49 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/ofiber-{{ version }}.tar.gz
-  sha256: 89c27cd297c13d2e2da000577b951723f519d44d0f3542f3468d1722a210cfad
+  sha256: 4ec1421f1ba01877552ecaace4c0f01b1726e6eee6dd9ce8bbd1cd7a0b5bad14
 
 build:
   noarch: python
-  script: {{ PYTHON }} -m pip install . -vv
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
 
 requirements:
   host:
     - pip
     - python {{ python_min }}
-    - setuptools >=44
+    # setuptools stays: the build below uses --no-build-isolation, so nothing
+    # else would install the backend.  wheel is redundant since setuptools 70.1.
+    - setuptools >=77
   run:
-    - pip
     - python >={{ python_min }}
     - matplotlib-base
     - numpy
     - scipy
 
 test:
+  source_files:
+    - tests
   imports:
     - ofiber
   commands:
-    - pip check
+    # test_all_notebooks.py needs a running Jupyter kernel, so it is skipped
+    - pytest tests --ignore=tests/test_all_notebooks.py
   requires:
     - pip
+    - pytest
     - python {{ python_min }}
 
 about:
   home: https://github.com/scottprahl/ofiber
-  summary: A python module for mode and power calculations for optical fibers.
+  summary: A Python module for light propagation in optical fibers.
+  description: |
+    ofiber is a Python library for analyzing guided-wave propagation in
+    optical fibers and related dielectric waveguiding structures.  It
+    provides tools for mode analysis, dispersion engineering, and far-field
+    radiation modeling, following the treatments in Ghatak & Thyagarajan,
+    An Introduction to Fiber Optics, and Chen, Foundations for Guided-Wave
+    Optics.
   license: MIT
   license_family: MIT
   license_file:
