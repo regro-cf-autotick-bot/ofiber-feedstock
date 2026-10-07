@@ -7,11 +7,19 @@ Home: https://github.com/scottprahl/ofiber
 
 Package license: MIT
 
-Summary: A python module for mode and power calculations for optical fibers.
+Summary: A Python module for light propagation in optical fibers.
 
 Development: https://github.com/scottprahl/ofiber
 
 Documentation: https://ofiber.readthedocs.io/
+
+ofiber is a Python library for analyzing guided-wave propagation in
+optical fibers and related dielectric waveguiding structures.  It
+provides tools for mode analysis, dispersion engineering, and far-field
+radiation modeling, following the treatments in Ghatak & Thyagarajan,
+An Introduction to Fiber Optics, and Chen, Foundations for Guided-Wave
+Optics.
+
 
 Current build status
 ====================
@@ -44,31 +52,73 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `ofiber` can be installed with `conda`:
+How to use
+----------
+
+<details>
+<summary>With conda</summary>
 
 ```
 conda install ofiber
 ```
 
-or with `mamba`:
+</details>
+
+<details>
+<summary>With mamba</summary>
 
 ```
 mamba install ofiber
 ```
 
-It is possible to list all of the versions of `ofiber` available on your platform with `conda`:
+</details>
+
+<details>
+<summary>With pixi</summary>
+
+```
+# for adding to your local project
+pixi add ofiber
+# for installing globally
+pixi global install ofiber
+```
+
+</details>
+
+Search package versions
+-----------------------
+
+It is possible to list all of the versions of `ofiber` available on your platform:
+
+<details>
+<summary>With conda</summary>
 
 ```
 conda search ofiber --channel conda-forge
 ```
 
-or with `mamba`:
+</details>
+
+<details>
+<summary>With mamba</summary>
 
 ```
 mamba search ofiber --channel conda-forge
 ```
 
-Alternatively, `mamba repoquery` may provide more information:
+</details>
+
+<details>
+<summary>With pixi</summary>
+
+```
+pixi search ofiber --channel conda-forge
+```
+
+</details>
+
+<details>
+<summary>With mamba repoquery, which may provide more information</summary>
 
 ```
 # Search all versions available on your platform:
@@ -80,6 +130,8 @@ mamba repoquery whoneeds ofiber --channel conda-forge
 # List dependencies of `ofiber`:
 mamba repoquery depends ofiber --channel conda-forge
 ```
+
+</details>
 
 
 About conda-forge
